@@ -21,6 +21,7 @@ app.post('/webhook', (req: Request, res: Response) => {
 
   // Respond to GitHub
   res.status(200).send('Webhook received');
+
 });
 
 // Start the server
