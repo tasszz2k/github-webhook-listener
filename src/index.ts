@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import {handlePREvent} from "./pr-handler";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,10 +15,12 @@ app.post('/webhook', (req: Request, res: Response) => {
   const signature = req.headers['x-hub-signature'];
   const payload = req.body;
 
-  console.log(`Received event: ${event}`);
-  console.log(`Delivery ID: ${deliveryId}`);
-  console.log(`Signature: ${signature}`);
-  console.log('Payload:', payload);
+  // console.log(`Received event: ${event}`);
+  // console.log(`Delivery ID: ${deliveryId}`);
+  // console.log(`Signature: ${signature}`);
+  // console.log('Payload:', payload);
+
+  handlePREvent(payload);
 
   // Respond to GitHub
   res.status(200).send('Webhook received');
