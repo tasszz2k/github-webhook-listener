@@ -8,14 +8,16 @@ class MigrationStep {
   public environment: string;
   public step: number;
   public prURL: string;
-  action: PullRequestAction;
+  public action: PullRequestAction;
+  public actor: string;
 
-  constructor(application: string, environment: string, step: number, pr_url: string, action: PullRequestAction = PullRequestAction.OPENED) {
+  constructor(application: string, environment: string, step: number, pr_url: string, action: PullRequestAction = PullRequestAction.OPENED, actor: string = '') {
     this.application = application;
     this.environment = environment;
     this.step = step;
     this.prURL = pr_url;
     this.action = action;
+    this.actor = actor;
   }
 }
 
@@ -95,12 +97,35 @@ export function handlePREvent(payload: any) {
   const step = parseInt(match[3]);
   const prUrl = payload.pull_request.url;
   const prAction = payload.action;
+  const actor = payload.sender.login;
+
+  switch (prAction){
+    case PullRequestAction.OPENED:
+      console.log('PR opened');
+      break;
+    case PullRequestAction.CLOSED:
+      console.log('PR closed');
+      if (payload.pull_request.merged_at == null) {
+        console.log('PR not merged, skipping...');
+        return;
+      }
+      break;
+    case PullRequestAction.SUBMITTED:
+      console.log('PR submitted');
+      if (payload.review.state != 'approved') {
+        console.log('PR not approved, skipping...');
+        return;
+      }
+      break;
+    default:
+      console.log(`Skip action: ${prAction}`);
+      return;
+  }
 
   // build the migration step object
-  const migrationStep = new MigrationStep(application, environment, step, prUrl, prAction);
+  const migrationStep = new MigrationStep(application, environment, step, prUrl, prAction, actor);
   console.log('Migration step:', migrationStep);
   saveData(migrationStep)
-  console.log('Saved data')
 }
 
 // Enum to define PR actions clearly
@@ -124,8 +149,8 @@ function toMigrationStatus(action: PullRequestAction): string {
 
 function saveData(data: MigrationStep) {
   const outputFilePath = path.resolve(__dirname, '../data/output.csv');
-  const headers = ['Application', 'Environment', 'Step', 'PR URL', 'Action'];
-  const row = [data.application, data.environment, data.step.toString(), data.prURL, toMigrationStatus(data.action)];
+  const headers = ['Application', 'Environment', 'Step', 'PR URL', 'Action', 'Actor'];
+  const row = [data.application, data.environment, data.step.toString(), data.prURL, toMigrationStatus(data.action), data.actor];
 
   const csvLine = row.join(',') + '\n';
 
@@ -136,4 +161,6 @@ function saveData(data: MigrationStep) {
 
   // Append the data
   fs.appendFileSync(outputFilePath, csvLine);
+
+  console.log(`Data saved: ${csvLine}`);
 }

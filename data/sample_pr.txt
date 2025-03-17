@@ -1,7 +1,7 @@
-[ag1] migration(app-1): (step-2) title here
-[ag1] migration(app-1): (step-3) title here
-[ag1] migration(app-1): (step-4) title here
-
-[us2] migration(app-1): (step-2) title here
-[us2] migration(app-1): (step-3) title here
-[us2] migration(app-1): (step-4) title here
+- [ag1] migration(app-1): (step-2) title here
+- [ag1] migration(app-1): (step-3) title here
+- [ag1] migration(app-1): (step-4) title here
+-
+- [us2] migration(app-1): (step-2) title here
+- [us2] migration(app-1): (step-3) title here
+- [us2] migration(app-1): (step-4) title here

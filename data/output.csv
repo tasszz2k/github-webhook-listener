@@ -1,1 +1,13 @@
-Application, Environment, Step, Pull Request URL, Status
+Application, Environment, Step, PR URL, Action, Actor
+app-1,ag1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/6,CREATED,
+app-1,ag1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/6,APPROVED,tasszz2k
+app-1,ag1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/6,MERGED,tass2k
+app-1,ag1,3,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/7,CREATED,tass2k
+app-1,ag1,3,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/7,APPROVED,tasszz2k
+app-1,ag1,3,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/7,MERGED,tass2k
+app-1,ag1,4,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/8,CREATED,tass2k
+app-1,ag1,4,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/8,APPROVED,tasszz2k
+app-1,ag1,4,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/8,MERGED,tass2k
+app-1,us1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/9,CREATED,tass2k
+app-1,us1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/9,APPROVED,tasszz2k
+app-1,us1,2,https://api.github.com/repos/tasszz2k/github-webhook-listener/pulls/9,MERGED,tasszz2k
